@@ -37,4 +37,22 @@ def profile(request): #access DB and posting things to website
     context = {'form': form}
     return render(request, 'FeedApp/profile.html', context)
 
+@login_required
+def myfeed(request): #want to see all of our posts + all likes and comments
+    comment_count_list = []
+    like_count_list = [] #create empty lists b/c there are multiple comments 
+    posts = Post.objects.filter(username=request.user).order_by('-date_posted')#use filter if >1, use get() if only 1
+                                                                               #order_by = descending order
+    for p in posts:
+        c_count = Comment.objects.filter(posts=p).count()#provides number of comments on each post
+        l_count = Like.objects.filter(posts=p).count()
+        comment_count_list.append(c_count)
+        like_count_list.append(l_count)
+
+    #iterate through the comments and likes of each post together
+    zipped_list = zip(posts,comment_count_list,like_count_list)
+
+    context = {'posts':posts, 'zipped_list': zipped_list} #context is how we pass all of the things in this function to myfeed in urls?
+    return render(request, 'FeedApp/myfeed.html', context)
+
 
