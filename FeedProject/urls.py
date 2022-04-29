@@ -21,10 +21,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('FeedApp.urls')),
-    path('users/', include('users.urls')),
+    path('', include('FeedApp.urls')), #path to feed app
+    path('users/', include('users.urls')), #path to users
 ]
-
+#assigning files to media url and media root files. 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

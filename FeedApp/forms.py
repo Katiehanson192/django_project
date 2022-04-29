@@ -10,13 +10,13 @@ class PostForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = Profile #connects to Profile class in models file
         fields = ['first_name','last_name','email','dob','bio']
         labels = {'first_name':'First Name',
                     'last_name':'Last Name',
                     'email':'Email',
                     'dob':'Date of Birth',
-                    'bio':'Bio'}
+                    'bio':'Bio'} #changes how things are displayed
 
 class RelationshipForm(forms.ModelForm):
     class Meta:
